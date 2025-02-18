@@ -16,7 +16,7 @@ const HomeScreen: React.FC = () => {
       type: action.type,
       payload: action.payload,
     });
-  }, []);
+  }, [query, dispatch]);
 
   return (
     <View style={styles.container}>

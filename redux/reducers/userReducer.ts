@@ -1,4 +1,9 @@
-import { SEARCH_USER, UserActionTypes, UsersState } from "../types/userTypes";
+import {
+  SEARCH_USER,
+  User,
+  UserActionTypes,
+  UsersState,
+} from "../types/userTypes";
 
 const initialState: UsersState = {
   users: {
@@ -4440,14 +4445,63 @@ export function usersReducer(
 ): UsersState {
   switch (action.type) {
     case SEARCH_USER:
-      console.log(action.payload);
-      const filteredUsers = Object.fromEntries(
-        Object.entries(state.users).filter(([_, user]) =>
-          user.name.toLowerCase().includes(action.payload.toLowerCase())
-        )
+      const searchedUser = action.payload;
+      const users = Object.values(state.users) as User[];
+      const sortedUsers = users.sort((a, b) => b.bananas - a.bananas);
+      const searchedUserIndex = sortedUsers.findIndex(
+        (user) => user.name.toLowerCase() === searchedUser.toLowerCase()
       );
-      return { users: filteredUsers };
+      if (searchedUserIndex === -1) {
+        alert(
+          "This user name does not exist! Please specify an existing user name!"
+        );
+        return state;
+      }
+
+      const foundUser = sortedUsers[searchedUserIndex];
+
+      const top10Users = sortedUsers.slice(0, 10);
+      const searchedUserRank = top10Users.findIndex(
+        (user) => user.name === searchedUser
+      );
+
+      if (searchedUserRank === -1) {
+        top10Users.pop();
+        top10Users.push({
+          ...foundUser,
+          rank: searchedUserIndex + 1,
+          isSearchedUser: true,
+        });
+      }
+
+      return {
+        ...state,
+        users: top10Users.reduce((acc, user, index) => {
+          return {
+            ...acc,
+            [user.uid]: {
+              ...user,
+              rank:
+                searchedUser === user.name ? searchedUserIndex + 1 : index + 1,
+              isSearchedUser: user.name === searchedUser,
+            },
+          };
+        }, {}),
+      };
     default:
-      return state;
+      return {
+        ...state,
+        users: Object.values(state.users)
+          .sort((a, b) => b.bananas - a.bananas)
+          .reduce((acc, user, index) => {
+            return {
+              ...acc,
+              [user.uid]: {
+                ...user,
+                rank: index + 1,
+              },
+            };
+          }, {}),
+      };
   }
 }

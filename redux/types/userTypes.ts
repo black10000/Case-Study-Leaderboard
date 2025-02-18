@@ -6,6 +6,8 @@ export interface User {
   longestStreak: number;
   stars: number;
   subscribed: boolean;
+  rank?: number;
+  isSearchedUser?: boolean;
 }
 
 export interface UsersState {

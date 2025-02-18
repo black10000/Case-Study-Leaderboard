@@ -11,11 +11,18 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
   return (
     <FlatList
+      showsVerticalScrollIndicator={false}
       data={userArray}
       keyExtractor={(item) => item.uid}
       renderItem={({ item }) => (
         <View style={styles.userItem}>
-          <Text style={styles.userName}>{item.name}</Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={styles.userName}>{item.name}</Text>
+            {item.isSearchedUser && <Text>⭐</Text>}
+          </View>
+          {!!item.rank && <Text>Rank: {item.rank}</Text>}
           <Text>Bananas: {item.bananas}</Text>
           <Text>Stars: {item.stars}</Text>
         </View>
