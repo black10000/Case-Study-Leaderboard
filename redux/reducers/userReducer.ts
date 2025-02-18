@@ -4491,7 +4491,7 @@ export function usersReducer(
     default:
       return {
         ...state,
-        users: Object.values(state.users)
+        users: Object.values(initialState.users)
           .sort((a, b) => b.bananas - a.bananas)
           .reduce((acc, user, index) => {
             return {
