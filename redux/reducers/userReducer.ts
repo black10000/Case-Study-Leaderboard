@@ -1,5 +1,6 @@
 import {
   SEARCH_USER,
+  SORT_USERS,
   User,
   UserActionTypes,
   UsersState,
@@ -4488,6 +4489,55 @@ export function usersReducer(
           };
         }, {}),
       };
+    case SORT_USERS:
+      const data = Object.values(initialState.users) as User[];
+      const usersToSort = data
+        .sort((a, b) => b.bananas - a.bananas)
+        .map((user, index) => {
+          return {
+            ...user,
+            rank: index + 1,
+          };
+        });
+
+      if (action.payload.type === "name") {
+        return {
+          ...state,
+          users: usersToSort
+            .sort((a, b) => {
+              return action.payload.sortDir === "asc"
+                ? a.name.localeCompare(b.name)
+                : b.name.localeCompare(a.name);
+            })
+            .reduce((acc, user, index) => {
+              return {
+                ...acc,
+                [user.uid]: {
+                  ...user,
+                },
+              };
+            }, {}),
+        };
+      }
+
+      return {
+        ...state,
+        users: usersToSort
+          .sort((a, b) => {
+            return action.payload.sortDir === "asc"
+              ? b.rank - a.rank
+              : a.rank - b.rank;
+          })
+          .reduce((acc, user, index) => {
+            return {
+              ...acc,
+              [user.uid]: {
+                ...user,
+              },
+            };
+          }, {}),
+      };
+
     default:
       return {
         ...state,

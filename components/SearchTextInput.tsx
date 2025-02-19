@@ -16,6 +16,7 @@ export interface SearchTextInputProps extends TextInputProps {
   optional?: boolean;
   iconName?: string;
   showClearButton?: boolean;
+  onClearPress?: () => void;
   TextInputComponent?: React.ComponentType<TextInputProps & { ref: any }>;
   textInputContainerStyle?: StyleProp<ViewStyle>;
 }
@@ -37,6 +38,7 @@ const SearchTextInput = React.forwardRef<
       showClearButton,
       optional,
       onChangeText,
+      onClearPress,
       value,
       textInputContainerStyle,
       TextInputComponent = TextInput,
@@ -49,8 +51,8 @@ const SearchTextInput = React.forwardRef<
       inputRef.current?.focus();
     }, []);
 
-    const onClearPress = useCallback(() => {
-      onChangeText && onChangeText("");
+    const onClearPressX = useCallback(() => {
+      onClearPress && onClearPress();
       inputRef.current?.focus();
     }, [onChangeText]);
 
@@ -78,7 +80,7 @@ const SearchTextInput = React.forwardRef<
           onChangeText={onChangeText}
         />
         {!!value && (
-          <Pressable onPress={onClearPress}>
+          <Pressable onPress={onClearPressX}>
             <Ionicons name="close" size={16} color={"#000"} />
           </Pressable>
         )}

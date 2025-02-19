@@ -6,13 +6,15 @@ import UserItem from "./UserItem";
 
 interface UserListProps {
   users: Record<string, User>;
+  flatListRef?: React.RefObject<FlatList>;
 }
 
-const UserList: React.FC<UserListProps> = ({ users }) => {
+const UserList: React.FC<UserListProps> = ({ users, flatListRef }) => {
   const userArray = Object.values(users);
 
   return (
     <FlatList
+      ref={flatListRef}
       showsVerticalScrollIndicator={false}
       data={userArray}
       keyExtractor={(item) => item.uid}

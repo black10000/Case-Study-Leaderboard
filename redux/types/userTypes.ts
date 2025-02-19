@@ -15,10 +15,21 @@ export interface UsersState {
 }
 
 export const SEARCH_USER = "SEARCH_USER";
+export const SORT_USERS = "SORT_USERS";
 
 interface SearchUserAction {
   type: typeof SEARCH_USER;
   payload: string;
 }
 
-export type UserActionTypes = SearchUserAction;
+interface SortUserAction {
+  type: typeof SORT_USERS;
+  payload: SortData;
+}
+
+export type UserActionTypes = SearchUserAction | SortUserAction;
+
+export interface SortData {
+  type: "name" | "rank";
+  sortDir: "asc" | "desc";
+}
