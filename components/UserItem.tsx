@@ -16,7 +16,16 @@ const UserItem: React.FC<UserItemProps> = ({ item }) => {
           gap: 4,
         }}
       >
-        <Text style={styles.userName}>{item.name || "Unknown"}</Text>
+        <Text
+          style={[
+            {
+              color: item.isSearchedUser ? "red" : "black",
+            },
+            styles.userName,
+          ]}
+        >
+          {item.name || "Unknown"}
+        </Text>
         {item.isSearchedUser && (
           <Ionicons name="star" size={16} color={"#FFD700"} />
         )}

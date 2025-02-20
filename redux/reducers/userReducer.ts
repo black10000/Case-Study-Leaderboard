@@ -4447,7 +4447,7 @@ export function usersReducer(
   switch (action.type) {
     case SEARCH_USER:
       const searchedUser = action.payload;
-      const users = Object.values(state.users) as User[];
+      const users = Object.values(initialState.users) as User[];
       const sortedUsers = users.sort((a, b) => b.bananas - a.bananas);
       const searchedUserIndex = sortedUsers.findIndex(
         (user) => user.name.toLowerCase() === searchedUser.toLowerCase()

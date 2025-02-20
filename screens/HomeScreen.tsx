@@ -88,7 +88,7 @@ const HomeScreen: React.FC = () => {
           <Ionicons name="list-circle" size={24} color="black" />
         </Pressable>
       </View>
-      <Divider style={{ marginVertical: 8 }} mode="compact" />
+      <Divider style={[styles.my8]} mode="compact" />
       <View
         style={{
           flexDirection: "row",
@@ -117,26 +117,24 @@ const HomeScreen: React.FC = () => {
         >
           <View>
             <Text
-              style={{
+              style={[{
                 fontSize: 16,
                 fontWeight: "bold",
-                marginVertical: 8,
                 textAlign: "center",
-              }}
+              },styles.my8]}
             >
               Sort By
             </Text>
 
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <Divider
-                style={{
-                  marginVertical: 8,
+                style={[{
                   width: fullWidth * 0.5,
-                }}
+                },styles.my8]}
                 mode="compact"
               />
             </View>
-            <View style={{ marginLeft: 8 }}>
+            <View style={[styles.my8]}>
               <Text style={{ fontWeight: "bold" }}>Rank</Text>
               <View style={{ marginLeft: 8, marginTop: 8 }}>
                 <Pressable
@@ -150,7 +148,7 @@ const HomeScreen: React.FC = () => {
                   </View>
                   <Text>Asc</Text>
                 </Pressable>
-                <Divider style={{ marginVertical: 8 }} mode="compact" />
+                <Divider style={[styles.my8]} mode="compact" />
                 <Pressable
                   onPress={() =>
                     handleSortBy({ type: "rank", sortDir: "desc" })
@@ -167,7 +165,7 @@ const HomeScreen: React.FC = () => {
                 </Pressable>
               </View>
             </View>
-            <Divider style={{ marginVertical: 8 }} mode="compact" />
+            <Divider style={[styles.my8]} mode="compact" />
             <View style={{ marginLeft: 8, marginTop: 8 }}>
               <Text style={{ fontWeight: "bold" }}>Name</Text>
               <View style={{ marginLeft: 8, marginTop: 8 }}>
@@ -182,7 +180,7 @@ const HomeScreen: React.FC = () => {
                   </View>
                   <Text>Asc</Text>
                 </Pressable>
-                <Divider style={{ marginVertical: 8 }} mode="compact" />
+                <Divider style={[styles.my8]} mode="compact" />
                 <Pressable
                   onPress={() =>
                     handleSortBy({ type: "name", sortDir: "desc" })
@@ -213,12 +211,8 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     backgroundColor: "#fff",
   },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+  my8: {
+    marginVertical: 8,
   },
 });
 
